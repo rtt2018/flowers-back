@@ -1,14 +1,9 @@
-import express from "express";
-import cors from "cors";
-import pino from "pino-http";
-import cookieParser from "cookie-parser";
-import router from "./routers/index.js";
-import ingredientsRouter from "./routers/ingredients.js";
-import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "../docs/swagger.json" with { type: "json" };
-import { errorHandler } from "./middlewares/errorHandler.js";
-import { notFoundHandler } from "./middlewares/notFoundHandler.js";
-import categoriesRouter from "./routers/categories.js";
+import express from 'express';
+import cors from 'cors';
+import pino from 'pino-http';
+import cookieParser from 'cookie-parser';
+import { errorHandler } from './middlewares/errorHandler.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 export const setupServer = () => {
   const app = express();
@@ -18,16 +13,17 @@ export const setupServer = () => {
   app.use(
     pino({
       transport: {
-        target: "pino-pretty",
+        target: 'pino-pretty',
       },
-    })
+    }),
   );
   app.use(express.json());
 
-  app.use("/api/ingredients", ingredientsRouter);
-  app.use("/api/categories", categoriesRouter);
-  app.use("/api", router);
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  app.use('/boquets', boquetsRouter);
+  app.use('/flowers', flowersRouter);
+  app.use('/orders', orderRouter);
+  app.use('/cart', cartRouter);
+  app.use('/', router);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

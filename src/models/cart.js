@@ -1,20 +1,21 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
-const sessionsSchema = new Schema(
+const cartSchema = new Schema(
   {
-    _id: { type: Schema.Types.ObjectId, ref: "users", required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'users', required: true },
     position: {
       type: [
         {
           positionId: {
             type: Schema.Types.ObjectId,
-            ref,
+            ref: 'flowers',
           },
+          amount: { type: Number },
         },
       ],
     },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
-export const SessionsCollection = model("sessions", sessionsSchema);
+export const CartCollection = model('carts', cartSchema);
