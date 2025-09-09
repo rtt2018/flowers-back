@@ -6,6 +6,12 @@ const flowersShema = new Schema(
     description: { type: String, required: true },
     price: { type: Number, required: true },
     image: { type: String },
+    category: {
+      type: String,
+      enum: ['bouquets', 'flowers'],
+      required: true,
+    },
+    productionDate: { type: Date, required: true },
   },
   {
     timestamps: true,

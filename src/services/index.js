@@ -1,15 +1,27 @@
 import { createUser } from './user.js';
 import { getCartService } from '../services/cart.js';
 import { createOrder } from '../services/order.js';
+import { OrderCollection } from '../models/order.js';
 
-export const addOrderService = async (payload) => {
-  const user = await createUser(payload);
+export const addOrderService = async ({ user, cart, totalPrice }) => {
+  const findUser = await createUser(user);
 
-  const userId = user._id || user.id;
+  const userId = findUser._id || findUser.id;
 
-  getCartService({ ...payload, userId });
+  await getCartService({ cart, userId });
 
-  const order = createOrder({ ...payload, userId });
+  const createdOrder = await createOrder({ cart, userId, totalPrice });
 
-  return { user, order };
+  return { user, order: createdOrder };
+};
+
+export const getOrderById = async (id) => {
+  const order = await OrderCollection.findById(id)
+    .populate({
+      path: 'cart._id',
+      model: 'flowers',
+    })
+    .lean();
+
+  return order;
 };

@@ -4,13 +4,25 @@ import validateBody from '../utils/validateBody.js';
 import { pingController } from '../controllers/ping.js';
 import { getFlowersController } from '../controllers/flowers.js';
 import { getCartController } from '../controllers/cart.js';
-import { addOrderController } from '../controllers/order.js';
+import {
+  addOrderController,
+  getAllUserOrders,
+  getOrderDetailController,
+} from '../controllers/order.js';
+import { createOrderShema } from '../validation/order.js';
+import { isValidId } from '../middlewares/isValidId.js';
 
 const router = Router();
 router.get('/', ctrlWrapper(pingController));
 router.get('/flowers', ctrlWrapper(getFlowersController));
 router.get('/cart', ctrlWrapper(getCartController));
-router.post('/order', validateBody, ctrlWrapper(addOrderController));
+router.get('/order/:id', isValidId, ctrlWrapper(getOrderDetailController));
+router.get('/order', ctrlWrapper(getAllUserOrders));
+router.post(
+  '/order',
+  validateBody(createOrderShema),
+  ctrlWrapper(addOrderController),
+);
 router.post('/cart', ctrlWrapper(getCartController));
 
 export default router;
