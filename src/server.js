@@ -4,6 +4,7 @@ import pino from 'pino-http';
 import cookieParser from 'cookie-parser';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import router from './routers/index.js';
 
 export const setupServer = () => {
   const app = express();
@@ -19,10 +20,6 @@ export const setupServer = () => {
   );
   app.use(express.json());
 
-  app.use('/boquets', boquetsRouter);
-  app.use('/flowers', flowersRouter);
-  app.use('/orders', orderRouter);
-  app.use('/cart', cartRouter);
   app.use('/', router);
 
   app.use(notFoundHandler);

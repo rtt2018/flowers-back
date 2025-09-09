@@ -1,9 +1,9 @@
-import { CartCollection } from '../models/cart';
+import { CartCollection } from '../models/cart.js';
 
-export const createCart = async ({ userId, cart }) => {
+export const getCartService = async ({ userId, cart }) => {
   const findCart = CartCollection.replaceOne(
     { userId },
-    { userId, position: cart },
+    { userId, position: cart || [] },
     { upsert: true },
   );
   return findCart;

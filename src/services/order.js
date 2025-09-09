@@ -1,4 +1,4 @@
-import { OrderCollection } from '../models/order';
+import { OrderCollection } from '../models/order.js';
 
 export const createOrder = async ({ userId, cart, totalPrice }) => {
   return OrderCollection.create({
