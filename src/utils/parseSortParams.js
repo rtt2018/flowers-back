@@ -7,7 +7,7 @@ const parseSortOrder = (sortOrder) => {
 };
 
 const parseSortBy = (sortBy) => {
-  const keys = ['price', 'productionDate', '_id'];
+  const keys = ['price', 'productionDate', 'category', '_id'];
 
   if (keys.includes(sortBy)) {
     return sortBy;
