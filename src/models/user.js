@@ -4,13 +4,7 @@ const usersSchema = new Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    // password: { type: String, required: true },
-    cart: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'carts',
-      },
-    ],
+    password: { type: String, required: true },
   },
   { timestamps: true, versionKey: false },
 );
