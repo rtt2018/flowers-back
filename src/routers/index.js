@@ -24,5 +24,6 @@ router.post(
   ctrlWrapper(addOrderController),
 );
 router.post('/cart', ctrlWrapper(getCartController));
+router.get('/shops', ctrlWrapper());
 
 export default router;
