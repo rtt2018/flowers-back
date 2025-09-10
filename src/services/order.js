@@ -1,10 +1,17 @@
 import { OrderCollection } from '../models/order.js';
 import { Types } from 'mongoose';
 
-export const createOrder = async ({ userId, cart, totalPrice }) => {
+export const createOrder = async ({
+  userId,
+  cart,
+  totalPrice,
+  adress,
+  phone,
+}) => {
   const normalizeCart = cart.map((position) => {
     return {
       _id: Types.ObjectId.createFromHexString(position._id),
+      price: position.price,
       amount: position.amount,
     };
   });
@@ -13,6 +20,8 @@ export const createOrder = async ({ userId, cart, totalPrice }) => {
     userId,
     cart: normalizeCart,
     totalPrice,
+    adress,
+    phone,
     status: 'pending',
     createdAt: new Date(),
   });

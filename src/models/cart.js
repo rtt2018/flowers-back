@@ -10,6 +10,7 @@ const cartSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'flowers',
           },
+          price: { type: Number, required: true },
           amount: { type: Number },
         },
       ],
