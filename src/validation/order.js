@@ -24,26 +24,6 @@ export const createOrderShema = Joi.object({
         'string.hex': 'ID must contain only hexadecimal characters',
         'any.required': 'ID is required',
       }),
-      //   name: Joi.string().min(3).max(128).required().messages({
-      //     'string.base': 'Flower name must be a string',
-      //     'string.min': 'Flower name should have at least {#limit} characters',
-      //     'string.max': 'Flower name should have at most {#limit} characters',
-      //     'any.required': 'Flower name is required',
-      //   }),
-      //   description: Joi.string().min(3).max(512).required().messages({
-      //     'string.base': 'Flower description must be a string',
-      //     'string.min':
-      //       'Flower description should have at least {#limit} characters',
-      //     'string.max':
-      //       'Flower description should have at most {#limit} characters',
-      //     'any.required': 'Flower description is required',
-      //   }),
-      //   price: Joi.number().min(1).max(100500).required().messages({
-      //     'number.base': 'Food energy must be a number',
-      //     'number.min': 'Food energy must be at least {#limit}',
-      //     'number.max': 'Food energy must be at most {#limit}',
-      //     'any.required': 'Price is required',
-      //   }),
       amount: Joi.number().min(1).max(100500).required().messages({
         'number.base': 'Food energy must be a number',
         'number.min': 'Food energy must be at least {#limit}',

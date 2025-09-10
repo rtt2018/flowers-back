@@ -9,14 +9,7 @@ import router from './routers/index.js';
 export const setupServer = () => {
   const app = express();
 
-  app.use(
-    cors({
-      origin: [
-        'https://flowers-back-0xk7.onrender.com',
-        'https://localhost:4325',
-      ],
-    }),
-  );
+  app.use(cors());
   app.use(cookieParser());
   app.use(
     pino({

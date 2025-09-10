@@ -32,3 +32,36 @@ export const getFlowersService = async ({
     ...(flowers.length === 0 && { message: 'No flowers found' }),
   };
 };
+
+export const getFlowersShopService = async ({
+  page = 1,
+  perPage = 12,
+  sortOrder = SORT_ORDER.ASC,
+  sortBy = '_id',
+  shopName,
+}) => {
+  const limit = perPage;
+  const skip = page > 0 ? (page - 1) * perPage : 0;
+
+  const flowersQuery = FlowersCollection.find({ shopName });
+  const [total, flowers] = await Promise.all([
+    FlowersCollection.countDocuments({ shopName }),
+    flowersQuery
+      .skip(skip)
+      .limit(limit)
+      .sort({ [sortBy]: sortOrder })
+      .exec(),
+  ]);
+  const totalPages = Math.ceil(total / perPage);
+
+  return {
+    hits: flowers,
+    page,
+    perPage,
+    totalItems: total,
+    totalPages,
+    hasPreviousPage: page > 1,
+    hasNextPage: page < totalPages,
+    ...(flowers.length === 0 && { message: 'No flowers found' }),
+  };
+};

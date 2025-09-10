@@ -1,4 +1,4 @@
-import { ShopsCollection } from '../models/shops';
+import { ShopsCollection } from '../models/shops.js';
 
 export const getShopsService = async () => {
   const shops = await ShopsCollection.find();

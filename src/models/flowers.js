@@ -12,6 +12,7 @@ const flowersShema = new Schema(
       required: true,
     },
     productionDate: { type: Date, required: true },
+    shopName: { type: String, required: true },
   },
   {
     timestamps: true,
