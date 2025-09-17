@@ -30,7 +30,7 @@ export const addOrderService = async ({
 export const getOrderById = async (id) => {
   const order = await OrderCollection.findById(id)
     .populate({
-      path: 'cart._id',
+      path: 'cart.flower',
       model: 'flowers',
     })
     .lean();
