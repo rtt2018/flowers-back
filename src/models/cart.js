@@ -6,7 +6,7 @@ const cartSchema = new Schema(
     position: {
       type: [
         {
-          _id: {
+          flower: {
             type: Schema.Types.ObjectId,
             ref: 'flowers',
           },
