@@ -10,7 +10,7 @@ export const createOrder = async ({
 }) => {
   const normalizeCart = cart.map((position) => {
     return {
-      flower: Types.ObjectId.createFromHexString(position._id),
+      flower: Types.ObjectId.createFromHexString(position.flower),
       price: position.price,
       amount: position.amount,
     };
