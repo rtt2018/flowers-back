@@ -18,7 +18,7 @@ export const createOrderShema = Joi.object({
   }),
   cart: Joi.array().items(
     Joi.object({
-      _id: Joi.string().length(24).hex().required().messages({
+      flower: Joi.string().length(24).hex().required().messages({
         'string.base': 'ID must be a string',
         'string.length': 'ID must be exactly 24 characters long',
         'string.hex': 'ID must contain only hexadecimal characters',

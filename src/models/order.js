@@ -5,7 +5,7 @@ const orderSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: 'users', required: true },
     cart: [
       {
-        _id: {
+        flower: {
           type: Schema.Types.ObjectId,
           ref: 'flowers',
         },
