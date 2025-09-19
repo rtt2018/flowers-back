@@ -24,16 +24,7 @@ export const addOrderService = async ({
     phone,
   });
 
-  return { user, order: createdOrder };
-};
+  const allOrders = await OrderCollection.find({ userId });
 
-export const getOrderById = async (id) => {
-  const order = await OrderCollection.findById(id)
-    .populate({
-      path: 'cart.flower',
-      model: 'flowers',
-    })
-    .lean();
-
-  return order;
+  return { user, order: createdOrder, orders: allOrders };
 };
