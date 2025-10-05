@@ -14,17 +14,6 @@ export const addOrderController = async (req, res) => {
   });
 };
 
-export const getOrderDetailController = async (req, res) => {
-  const order = await getOrderById(req.params.id);
-
-  res.status(200).json({
-    message: 'Order details retrived!',
-    data: {
-      ...order,
-    },
-  });
-};
-
 export const getAllUserOrders = async (req, res) => {
   const user = await createUser(req.body.user);
 

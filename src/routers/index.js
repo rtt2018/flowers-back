@@ -7,13 +7,9 @@ import {
   getFlowersShopController,
 } from '../controllers/flowers.js';
 import { getCartController } from '../controllers/cart.js';
-import {
-  addOrderController,
-  getAllUserOrders,
-  getOrderDetailController,
-} from '../controllers/order.js';
+import { addOrderController, getAllUserOrders } from '../controllers/order.js';
 import { createOrderShema } from '../validation/order.js';
-import { isValidId } from '../middlewares/isValidId.js';
+// import { isValidId } from '../middlewares/isValidId.js';
 import { getShopsController } from '../controllers/shops.js';
 
 const router = Router();
@@ -21,7 +17,6 @@ router.get('/', ctrlWrapper(pingController));
 router.get('/flowers/:shopName', ctrlWrapper(getFlowersShopController));
 router.get('/flowers', ctrlWrapper(getFlowersController));
 router.get('/cart', ctrlWrapper(getCartController));
-router.get('/order/:id', isValidId, ctrlWrapper(getOrderDetailController));
 router.get('/order', ctrlWrapper(getAllUserOrders));
 router.post(
   '/order',
