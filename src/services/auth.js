@@ -1,4 +1,4 @@
-import { UsersCollection } from '../models/auth.js';
+import { UsersCollection } from '../models/user.js';
 import createHttpError from 'http-errors';
 import jwt from 'jsonwebtoken';
 import { getEnvVar } from '../utils/getEnvVar.js';
@@ -22,7 +22,7 @@ export const loginUser = async (email) => {
     },
     getEnvVar('JWT_SECRET'),
     {
-      expiresIn: getEnvVar('JWT_EXPIRES_IN
+      expiresIn: getEnvVar('JWT_EXPIRES_IN'),
     },
   );
 
