@@ -1,4 +1,4 @@
-import { addOrderService, getOrderById } from '../services/index.js';
+import { addOrderService } from '../services/index.js';
 import { createUser } from '../services/user.js';
 import { getAllOrdersService } from '../services/order.js';
 
