@@ -11,7 +11,10 @@ import { addOrderController, getAllUserOrders } from '../controllers/order.js';
 import { createOrderShema } from '../validation/order.js';
 // import { isValidId } from '../middlewares/isValidId.js';
 import { getShopsController } from '../controllers/shops.js';
-import { loginUserController } from '../controllers/auth.js';
+import {
+  loginUserController,
+  sendLoginLinkController,
+} from '../controllers/auth.js';
 
 const router = Router();
 router.get('/', ctrlWrapper(pingController));
@@ -20,7 +23,8 @@ router.get('/flowers', ctrlWrapper(getFlowersController));
 router.get('/cart', ctrlWrapper(getCartController));
 router.get('/order', ctrlWrapper(getAllUserOrders));
 router.get('/shops', ctrlWrapper(getShopsController));
-router.get('/auth', ctrlWrapper(loginUserController));
+router.get('/login', ctrlWrapper(loginUserController));
+router.post('/auth', ctrlWrapper(sendLoginLinkController));
 
 router.post(
   '/order',

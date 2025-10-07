@@ -32,7 +32,12 @@ export const createOrder = async ({
 };
 
 export const getAllOrdersService = async (userId) => {
-  const orders = await OrderCollection.find({ userId });
+  const orders = await OrderCollection.find({ userId })
+    .populate({
+      path: 'cart.flower',
+      model: 'flowers',
+    })
+    .exec();
   return orders;
 };
 

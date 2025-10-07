@@ -7,9 +7,12 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import { TEMPLATES_DIR } from '../constants/constants.js';
 import handlebars from 'handlebars';
+import { getAllOrdersService } from './order.js';
 
-export const loginUser = async (email) => {
+export const sendLoginLinkService = async (email) => {
+  // console.log('🚀 ~ sendLoginLinkService ~ email:', email);
   const user = await UsersCollection.findOne({ email });
+  // console.log('🚀 ~ sendLoginLinkService ~ user:', user);
 
   if (!user) {
     throw new createHttpError.NotFound('User not found');
@@ -26,10 +29,7 @@ export const loginUser = async (email) => {
     },
   );
 
-  const resetPasswordTemplatePath = path.join(
-    TEMPLATES_DIR,
-    'reset-password-email.hbs',
-  );
+  const resetPasswordTemplatePath = path.join(TEMPLATES_DIR, 'login-user.hbs');
 
   const templateSource = (
     await fs.readFile(resetPasswordTemplatePath)
@@ -38,12 +38,43 @@ export const loginUser = async (email) => {
   const template = handlebars.compile(templateSource);
   const html = template({
     name: user.name,
-    link: `${getEnvVar('APP_DOMAIN')}/auth/reset-password?token=${token}`,
+    link: `${getEnvVar('APP_DOMAIN')}/login?token=${token}`,
   });
 
-  await sendMail({
-    to: email,
-    subject: 'Reset password',
-    html,
-  });
+  try {
+    const info = await sendMail({
+      to: email,
+      subject: 'Authorization',
+      html,
+    });
+    return info;
+  } catch {
+    throw new createHttpError.BadGateway('Email not send!');
+  }
+};
+
+export const loginUserService = async (token) => {
+  try {
+    const decoded = jwt.verify(token, getEnvVar('JWT_SECRET'));
+
+    const user = await UsersCollection.findById(decoded.sub);
+
+    if (user === null) {
+      throw new createHttpError.NotFound('User not found');
+    }
+
+    const orders = await getAllOrdersService(user._id);
+
+    return { user, orders };
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      throw new createHttpError.Unauthorized('Token is expired');
+    }
+
+    if (error.name === 'JsonWebTokenError') {
+      throw new createHttpError.Unauthorized('Token is unauthorized');
+    }
+
+    throw error;
+  }
 };
