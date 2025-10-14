@@ -1,17 +1,22 @@
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
 
-import { getEnvVar } from './getEnvVar.js';
+// import { getEnvVar } from './getEnvVar.js';
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: getEnvVar('EMAIL_USER'),
-    pass: getEnvVar('EMAIL_PASS'),
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: getEnvVar('EMAIL_USER'),
+//     pass: getEnvVar('EMAIL_PASS'),
+//   },
+// });
 
-export function sendMail(mail) {
-  mail.from = getEnvVar('EMAIL_USER');
+// export function sendMail(mail) {
+//   mail.from = getEnvVar('EMAIL_USER');
 
-  return transporter.sendMail(mail);
-}
+//   return transporter.sendMail(mail);
+// }
+
+import { Resend } from 'resend';
+import { getEnvVar } from './getEnvVar';
+
+export const resend = new Resend(getEnvVar('RESEND_PASS'));

@@ -2,7 +2,7 @@ import { UsersCollection } from '../models/user.js';
 import createHttpError from 'http-errors';
 import jwt from 'jsonwebtoken';
 import { getEnvVar } from '../utils/getEnvVar.js';
-import { sendMail } from '../utils/sendMail.js';
+import { resend, sendMail } from '../utils/sendMail.js';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { TEMPLATES_DIR } from '../constants/constants.js';
@@ -42,12 +42,13 @@ export const sendLoginLinkService = async (email) => {
   });
 
   try {
-    const info = await sendMail({
+    resend.emails.send({
+      from: getEnvVar('EMAIL_USER'),
       to: email,
       subject: 'Authorization',
       html,
     });
-    return info;
+    return email;
   } catch {
     throw new createHttpError.BadGateway('Email not send!');
   }

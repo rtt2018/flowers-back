@@ -7,7 +7,7 @@ export const sendLoginLinkController = async (req, res) => {
   const result = await sendLoginLinkService(req.body.email);
 
   res.status(200).json({
-    message: `Link for authorisation will be send to email: ${result.accepted[0]}`,
+    message: `Link for authorisation will be send to email: ${result}`,
   });
 };
 
