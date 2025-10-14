@@ -42,13 +42,13 @@ export const sendLoginLinkService = async (email) => {
   });
 
   try {
-    const info = await resend.emails.send({
+    await resend.emails.send({
       from: getEnvVar('RESEND_MAIL'),
       to: email,
       subject: 'Authorization',
       html,
     });
-    console.log('🚀 ~ sendLoginLinkService ~ info:', info);
+    // console.log('🚀 ~ sendLoginLinkService ~ info:', info);
     return email;
   } catch {
     throw new createHttpError.BadGateway('Email not send!');
