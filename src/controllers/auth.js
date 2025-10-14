@@ -5,6 +5,7 @@ import { loginUserService, sendLoginLinkService } from '../services/auth.js';
 
 export const sendLoginLinkController = async (req, res) => {
   const result = await sendLoginLinkService(req.body.email);
+  console.log('🚀 ~ sendLoginLinkController ~ result:', result);
 
   res.status(200).json({
     message: `Link for authorisation will be send to email: ${result}`,

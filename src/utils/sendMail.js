@@ -17,6 +17,9 @@
 // }
 
 import { Resend } from 'resend';
-import { getEnvVar } from './getEnvVar';
+import { getEnvVar } from './getEnvVar.js';
 
-export const resend = new Resend(getEnvVar('RESEND_PASS'));
+const mailPass = getEnvVar('RESEND_PASS');
+console.log('🚀 ~ mailPass:', mailPass);
+
+export const resend = new Resend(mailPass);
