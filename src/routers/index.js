@@ -13,6 +13,7 @@ import { createOrderShema } from '../validation/order.js';
 import { getShopsController } from '../controllers/shops.js';
 import {
   loginUserController,
+  refreshAuthController,
   sendLoginLinkController,
 } from '../controllers/auth.js';
 
@@ -25,6 +26,7 @@ router.get('/order', ctrlWrapper(getAllUserOrders));
 router.get('/shops', ctrlWrapper(getShopsController));
 router.get('/login', ctrlWrapper(loginUserController));
 router.post('/auth', ctrlWrapper(sendLoginLinkController));
+router.post('/refresh', ctrlWrapper(refreshAuthController));
 
 router.post(
   '/order',
